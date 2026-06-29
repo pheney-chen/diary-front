@@ -72,9 +72,65 @@
       <text class="action-icon">🗑</text>
       <text class="action-text">删除</text>
     </view>
+    <view class="action-btn" bindtap="toggleAiPanel">
+      <text class="action-icon">🤖</text>
+      <text class="action-text">AI分析</text>
+    </view>
     <view class="action-btn primary" bindtap="editDiary">
       <text class="action-icon">✏️</text>
       <text class="action-text">编辑</text>
+    </view>
+  </view>
+
+  <!-- AI 分析面板 -->
+  <view wx:if="{{showAiPanel}}" class="ai-panel-mask" bindtap="closeAiPanel">
+    <view class="ai-panel" catchtap="">
+      <view class="ai-panel-header">
+        <text class="ai-panel-title">🤖 AI 分析</text>
+        <view class="ai-panel-close" bindtap="closeAiPanel">
+          <text>×</text>
+        </view>
+      </view>
+
+      <view class="ai-mode-section">
+        <text class="ai-section-label">选择分析模式</text>
+        <view class="ai-mode-list">
+          <view
+            class="ai-mode-item {{selectedMode && selectedMode.key === item.key ? 'selected' : ''}}"
+            wx:for="{{aiModes}}"
+            wx:key="key"
+            data-mode="{{item}}"
+            bindtap="selectAiMode"
+          >
+            <text class="mode-icon">{{item.icon}}</text>
+            <view class="mode-info">
+              <text class="mode-name">{{item.name}}</text>
+              <text class="mode-desc">{{item.desc}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="ai-action-section">
+        <view class="ai-analyze-btn {{isAnalyzing ? 'loading' : ''}}" bindtap="startAiAnalyze">
+          <text wx:if="{{!isAnalyzing}}">开始分析</text>
+          <text wx:else>分析中...</text>
+        </view>
+      </view>
+
+      <view wx:if="{{aiResult}}" class="ai-result-section">
+        <view class="ai-result-header">
+          <text class="ai-result-mode">{{aiResult.mode.icon}} {{aiResult.mode.name}}</text>
+        </view>
+        <view class="ai-result-content">
+          <text>{{aiResult.analysis}}</text>
+        </view>
+        <view class="ai-result-actions">
+          <view class="ai-copy-btn" bindtap="copyAiResult">
+            <text>📋 复制分析结果</text>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 </view>

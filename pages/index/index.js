@@ -87,5 +87,12 @@ Page({
     wx.switchTab({
       url: '/pages/calendar/calendar'
     })
+  },
+
+  goToAiAnalyze(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/diary-detail/diary-detail?id=${id}&autoOpenAi=true`
+    })
   }
 })

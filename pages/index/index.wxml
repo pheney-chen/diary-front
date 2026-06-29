@@ -53,12 +53,17 @@
             <text class="date-text">{{item.friendlyDate}}</text>
             <text class="mood">{{item.displayMood}}</text>
           </view>
-          <view class="card-type">
-            <text wx:if="{{item.type === 'text'}}" class="type-tag">文字</text>
-            <text wx:elif="{{item.type === 'voice'}}" class="type-tag">语音</text>
-            <text wx:elif="{{item.type === 'image'}}" class="type-tag">图片</text>
-            <text wx:elif="{{item.type === 'video'}}" class="type-tag">视频</text>
-            <text wx:else class="type-tag">混合</text>
+          <view class="card-actions">
+            <view class="card-ai-btn" data-id="{{item.id}}" catchtap="goToAiAnalyze">
+              <text class="ai-icon">🤖</text>
+            </view>
+            <view class="card-type">
+              <text wx:if="{{item.type === 'text'}}" class="type-tag">文字</text>
+              <text wx:elif="{{item.type === 'voice'}}" class="type-tag">语音</text>
+              <text wx:elif="{{item.type === 'image'}}" class="type-tag">图片</text>
+              <text wx:elif="{{item.type === 'video'}}" class="type-tag">视频</text>
+              <text wx:else class="type-tag">混合</text>
+            </view>
           </view>
         </view>
 

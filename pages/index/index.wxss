@@ -103,6 +103,27 @@
   margin-bottom: 20rpx;
 }
 
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.card-ai-btn {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+}
+
+.ai-icon {
+  font-size: 24rpx;
+}
+
 .card-date {
   display: flex;
   align-items: center;
