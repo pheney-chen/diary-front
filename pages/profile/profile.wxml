@@ -96,7 +96,7 @@
   </view>
 
   <view wx:if="{{showAbout}}" class="modal-mask" bindtap="hideAboutModal">
-    <view class="modal-content card" catchtap="">
+    <view class="modal-content card" catchtap="stopPropagation">
       <view class="modal-header">
         <text class="modal-title">关于每日日记</text>
       </view>

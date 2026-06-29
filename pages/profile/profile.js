@@ -77,6 +77,9 @@ Page({
     this.setData({ showAbout: false })
   },
 
+  stopPropagation() {
+  },
+
   getTotalStats() {
     const { types } = this.data.stats
     return types.text + types.voice + types.image + types.video + types.mixed

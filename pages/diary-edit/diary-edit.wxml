@@ -35,8 +35,9 @@
       <view class="mood-row" bindtap="toggleMoodPicker">
         <text class="mood-label">心情</text>
         <view class="mood-selector">
-          <text class="mood-emoji">{{moodList[0].emoji}}</text>
-          <text class="mood-text" wx:for="{{moodList}}" wx:key="key" wx:if="{{item.key === mood}}">{{item.emoji}} {{item.text}}</text>
+          <block wx:for="{{moodList}}" wx:key="key">
+            <text class="mood-text" wx:if="{{item.key === mood}}">{{item.emoji}} {{item.text}}</text>
+          </block>
           <text class="mood-arrow">▼</text>
         </view>
       </view>
