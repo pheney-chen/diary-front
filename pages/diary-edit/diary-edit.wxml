@@ -1,0 +1,174 @@
+<view class="page">
+  <view class="editor-container">
+    <view class="type-tabs">
+      <view
+        class="type-tab {{currentType === item.key ? 'active' : ''}}"
+        wx:for="{{typeOptions}}"
+        wx:key="key"
+        data-type="{{item.key}}"
+        bindtap="switchType"
+      >
+        <text class="type-icon">{{item.icon}}</text>
+        <text class="type-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <view class="editor-card card">
+      <input
+        class="title-input"
+        placeholder="输入标题..."
+        value="{{title}}"
+        bindinput="onTitleInput"
+        maxlength="50"
+      />
+
+      <textarea
+        class="content-input"
+        placeholder="今天发生了什么？记录下来吧..."
+        value="{{content}}"
+        bindinput="onContentInput"
+        maxlength="5000"
+        auto-height
+        show-confirm-bar="{{false}}"
+      />
+
+      <view class="mood-row" bindtap="toggleMoodPicker">
+        <text class="mood-label">心情</text>
+        <view class="mood-selector">
+          <text class="mood-emoji">{{moodList[0].emoji}}</text>
+          <text class="mood-text" wx:for="{{moodList}}" wx:key="key" wx:if="{{item.key === mood}}">{{item.emoji}} {{item.text}}</text>
+          <text class="mood-arrow">▼</text>
+        </view>
+      </view>
+
+      <view wx:if="{{showMoodPicker}}" class="mood-picker">
+        <view
+          class="mood-option {{mood === item.key ? 'selected' : ''}}"
+          wx:for="{{moodList}}"
+          wx:key="key"
+          data-mood="{{item.key}}"
+          bindtap="selectMood"
+        >
+          <text class="option-emoji">{{item.emoji}}</text>
+          <text class="option-text">{{item.text}}</text>
+        </view>
+      </view>
+
+      <view class="tags-section">
+        <view class="section-header">
+          <text class="section-title">标签</text>
+          <view class="add-tag-btn" bindtap="toggleTagInput">
+            <text>+ 添加</text>
+          </view>
+        </view>
+        <view class="tags-list" wx:if="{{tags.length > 0}}">
+          <view class="tag-item" wx:for="{{tags}}" wx:key="*this">
+            <text class="tag-text">#{{item}}</text>
+            <text class="tag-remove" data-index="{{index}}" catchtap="removeTag">×</text>
+          </view>
+        </view>
+        <view wx:if="{{showTagInput}}" class="tag-input-row">
+          <input
+            class="tag-input"
+            placeholder="输入标签"
+            value="{{tagInput}}"
+            bindinput="onTagInput"
+            maxlength="10"
+            confirm-type="done"
+            bindconfirm="addTag"
+          />
+          <view class="tag-add-btn" bindtap="addTag">添加</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="media-section">
+      <view class="section-title-bar">
+        <text class="section-title">媒体内容</text>
+      </view>
+
+      <view class="voice-section card" wx:if="{{currentType === 'voice' || (voice && currentType === 'text')}}">
+        <view class="section-header">
+          <text class="section-label">语音</text>
+        </view>
+        <view wx:if="{{voice}}" class="voice-item">
+          <view class="voice-player-mini">
+            <view class="play-btn" bindtap="playVoice">
+              <text>▶</text>
+            </view>
+            <view class="voice-info">
+              <text class="voice-name">语音日记</text>
+              <text class="voice-duration">{{voiceDuration}}秒</text>
+            </view>
+            <view class="remove-btn" bindtap="removeVoice">
+              <text>×</text>
+            </view>
+          </view>
+        </view>
+        <view wx:else class="record-section">
+          <view class="record-btn {{isRecording ? 'recording' : ''}}" bindtap="{{isRecording ? 'stopRecording' : 'startRecording'}}">
+            <text class="record-icon">{{isRecording ? '⏹' : '🎤'}}</text>
+            <text class="record-text">{{isRecording ? '停止录音 (' + recordTime + 's)' : '点击开始录音'}}</text>
+          </view>
+          <text class="record-tip">最长可录制10分钟</text>
+        </view>
+      </view>
+
+      <view class="images-section card" wx:if="{{currentType === 'image' || (images.length > 0 && currentType === 'text')}}">
+        <view class="section-header">
+          <text class="section-label">图片</text>
+          <text class="image-count">{{images.length}}/9</text>
+        </view>
+        <view class="image-grid">
+          <view
+            class="image-item"
+            wx:for="{{images}}"
+            wx:key="*this"
+          >
+            <image
+              src="{{item}}"
+              mode="aspectFill"
+              class="image-preview"
+              data-src="{{item}}"
+              bindtap="previewImage"
+            />
+            <view class="image-remove" data-index="{{index}}" catchtap="removeImage">
+              <text>×</text>
+            </view>
+          </view>
+          <view wx:if="{{images.length < 9}}" class="image-add" bindtap="chooseImages">
+            <text class="add-icon">+</text>
+            <text class="add-text">添加图片</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="video-section card" wx:if="{{currentType === 'video' || (video && currentType === 'text')}}">
+        <view class="section-header">
+          <text class="section-label">视频</text>
+        </view>
+        <view wx:if="{{video}}" class="video-item">
+          <video
+            src="{{video}}"
+            class="video-preview"
+            controls
+            object-fit="cover"
+          ></video>
+          <view class="remove-video" bindtap="removeVideo">
+            <text>删除视频</text>
+          </view>
+        </view>
+        <view wx:else class="video-add" bindtap="chooseVideo">
+          <text class="add-icon">🎬</text>
+          <text class="add-text">添加视频</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="save-btn" bindtap="saveDiary">
+      <text>保存日记</text>
+    </view>
+  </view>
+</view>

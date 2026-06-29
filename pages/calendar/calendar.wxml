@@ -1,0 +1,73 @@
+<view class="page">
+  <view class="calendar-card card">
+    <view class="calendar-header">
+      <view class="month-nav" bindtap="prevMonth">
+        <text class="nav-arrow">‹</text>
+      </view>
+      <view class="month-title" bindtap="goToToday">
+        {{currentYear}}年{{currentMonth + 1}}月
+      </view>
+      <view class="month-nav" bindtap="nextMonth">
+        <text class="nav-arrow">›</text>
+      </view>
+    </view>
+
+    <view class="week-header">
+      <view class="week-day" wx:for="{{weekDays}}" wx:key="*this">
+        {{item}}
+      </view>
+    </view>
+
+    <view class="calendar-body">
+      <view class="calendar-week" wx:for="{{calendarMatrix}}" wx:for-item="week" wx:key="index">
+        <view
+          class="calendar-day {{!item.currentMonth ? 'other-month' : ''}} {{item.date === selectedDate ? 'selected' : ''}} {{item.date === today ? 'today' : ''}}"
+          wx:for="{{week}}"
+          wx:for-item="item"
+          wx:key="date"
+          data-date="{{item.date}}"
+          data-currentmonth="{{item.currentMonth}}"
+          bindtap="selectDate"
+        >
+          <text class="day-number">{{item.day}}</text>
+          <view wx:if="{{diaryDates[item.date] > 0}}" class="diary-dot">
+            <text wx:if="{{diaryDates[item.date] > 1}}" class="diary-count">{{diaryDates[item.date]}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="diary-section">
+    <view class="section-header">
+      <text class="section-title">{{selectedDate}} 的日记</text>
+      <text class="diary-count-text">共 {{selectedDiaries.length}} 篇</text>
+    </view>
+
+    <view wx:if="{{selectedDiaries.length > 0}}">
+      <view
+        class="diary-item card"
+        wx:for="{{selectedDiaries}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="goToDetail"
+      >
+        <view class="item-header">
+          <text class="item-title" wx:if="{{item.title}}">{{item.title}}</text>
+          <text class="item-title no-title" wx:else>无标题</text>
+          <text class="item-type">{{item.type === 'text' ? '文字' : item.type === 'voice' ? '语音' : item.type === 'image' ? '图片' : item.type === 'video' ? '视频' : '混合'}}</text>
+        </view>
+        <view class="item-content text-ellipsis-2" wx:if="{{item.content}}">
+          {{item.content}}
+        </view>
+        <view class="item-time">{{item.friendlyDate}}</view>
+      </view>
+    </view>
+
+    <view wx:else class="empty-day">
+      <text class="empty-icon">📅</text>
+      <text class="empty-text">这一天还没有日记</text>
+      <view class="empty-btn" bindtap="goToEdit">写一篇</view>
+    </view>
+  </view>
+</view>

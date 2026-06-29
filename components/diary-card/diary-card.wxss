@@ -1,0 +1,125 @@
+.diary-card {
+  padding: 30rpx;
+  margin-bottom: 24rpx;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.card-date {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.date-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.mood {
+  font-size: 28rpx;
+}
+
+.type-tag {
+  font-size: 20rpx;
+  padding: 4rpx 16rpx;
+  background: #E8F0FE;
+  color: #4A90E2;
+  border-radius: 20rpx;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.card-content {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20rpx;
+}
+
+.card-voice {
+  margin-bottom: 20rpx;
+}
+
+.voice-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 8rpx 20rpx;
+  background: #FFF5E6;
+  border-radius: 20rpx;
+}
+
+.voice-icon {
+  font-size: 24rpx;
+}
+
+.voice-duration {
+  font-size: 22rpx;
+  color: #F39C12;
+}
+
+.card-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-bottom: 20rpx;
+}
+
+.card-image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 12rpx;
+}
+
+.card-video {
+  margin-bottom: 20rpx;
+}
+
+.video-cover {
+  width: 100%;
+  height: 300rpx;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+}
+
+.play-icon {
+  font-size: 48rpx;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.video-label {
+  font-size: 26rpx;
+  color: #fff;
+  opacity: 0.8;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.tag {
+  font-size: 22rpx;
+  color: #4A90E2;
+  background: #E8F0FE;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+}

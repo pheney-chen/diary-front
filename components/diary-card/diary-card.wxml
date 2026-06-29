@@ -1,0 +1,50 @@
+<view class="diary-card card" wx:if="{{diary}}" bindtap="onCardTap">
+  <view class="card-header">
+    <view class="card-date">
+      <text class="date-text">{{friendlyDate}}</text>
+      <text class="mood">{{displayMood}}</text>
+    </view>
+    <view class="card-type">
+      <text class="type-tag">{{typeText}}</text>
+    </view>
+  </view>
+
+  <view class="card-title" wx:if="{{diary.title}}">
+    {{diary.title}}
+  </view>
+
+  <view class="card-content text-ellipsis-2" wx:if="{{diary.content}}">
+    {{diary.content}}
+  </view>
+
+  <view class="card-voice" wx:if="{{diary.voice}}">
+    <view class="voice-badge">
+      <text class="voice-icon">🎤</text>
+      <text class="voice-duration">{{diary.voiceDuration}}s</text>
+    </view>
+  </view>
+
+  <view class="card-images" wx:if="{{diary.images && diary.images.length > 0}}">
+    <image
+      wx:for="{{diary.images}}"
+      wx:for-item="img"
+      wx:key="*this"
+      src="{{img}}"
+      class="card-image"
+      mode="aspectFill"
+      data-src="{{img}}"
+      catchtap="onPreviewImage"
+    />
+  </view>
+
+  <view class="card-video" wx:if="{{diary.video}}">
+    <view class="video-cover">
+      <text class="play-icon">▶</text>
+      <text class="video-label">视频日记</text>
+    </view>
+  </view>
+
+  <view class="card-tags" wx:if="{{diary.tags && diary.tags.length > 0}}">
+    <text class="tag" wx:for="{{diary.tags}}" wx:key="*this">#{{item}}</text>
+  </view>
+</view>

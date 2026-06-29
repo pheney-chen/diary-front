@@ -1,0 +1,24 @@
+<view class="voice-player card">
+  <view class="play-btn" bindtap="togglePlay">
+    <text class="play-icon">{{isPlaying ? '⏸' : '▶'}}</text>
+  </view>
+  <view class="player-info">
+    <view class="player-title">{{title}}</view>
+    <view class="progress-section">
+      <slider
+        class="progress-slider"
+        min="0"
+        max="100"
+        value="{{progress}}"
+        activeColor="#4A90E2"
+        backgroundColor="#e0e0e0"
+        block-size="16"
+        bindchange="onSliderChange"
+      />
+    </view>
+    <view class="time-row">
+      <text class="time-text">{{currentTimeText}}</text>
+      <text class="time-text">{{durationText}}</text>
+    </view>
+  </view>
+</view>

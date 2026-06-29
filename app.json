@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/diary-detail/diary-detail",
+    "pages/diary-edit/diary-edit",
+    "pages/calendar/calendar",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "每日日记",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f7f7f7",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#4A90E2",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "日记"
+      },
+      {
+        "pagePath": "pages/calendar/calendar",
+        "text": "日历"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.record": {
+      "desc": "用于录制语音日记"
+    },
+    "scope.writePhotosAlbum": {
+      "desc": "用于保存图片到相册"
+    },
+    "scope.camera": {
+      "desc": "用于拍摄照片和视频日记"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseImage",
+    "chooseMedia",
+    "getRecorderManager"
+  ],
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

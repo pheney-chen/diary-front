@@ -1,0 +1,115 @@
+<view class="page">
+  <view class="header">
+    <view class="avatar-section">
+      <view class="avatar">
+        <text class="avatar-icon">📔</text>
+      </view>
+      <view class="user-info">
+        <text class="nickname">每日日记</text>
+        <text class="signature">记录生活，留住美好</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="stats-section">
+    <view class="stats-card card">
+      <view class="stats-title">📊 数据统计</view>
+      <view class="stats-grid">
+        <view class="stat-box">
+          <text class="stat-num">{{stats.total}}</text>
+          <text class="stat-label">总日记</text>
+        </view>
+        <view class="stat-box">
+          <text class="stat-num">{{stats.thisMonth}}</text>
+          <text class="stat-label">本月</text>
+        </view>
+        <view class="stat-box">
+          <text class="stat-num">{{stats.consecutiveDays}}</text>
+          <text class="stat-label">连续天数</text>
+        </view>
+      </view>
+      <view class="type-stats">
+        <view class="type-item">
+          <text class="type-icon">📝</text>
+          <text class="type-name">文字</text>
+          <text class="type-count">{{stats.types.text}}</text>
+        </view>
+        <view class="type-item">
+          <text class="type-icon">🎤</text>
+          <text class="type-name">语音</text>
+          <text class="type-count">{{stats.types.voice}}</text>
+        </view>
+        <view class="type-item">
+          <text class="type-icon">🖼️</text>
+          <text class="type-name">图片</text>
+          <text class="type-count">{{stats.types.image}}</text>
+        </view>
+        <view class="type-item">
+          <text class="type-icon">🎬</text>
+          <text class="type-name">视频</text>
+          <text class="type-count">{{stats.types.video}}</text>
+        </view>
+        <view class="type-item">
+          <text class="type-icon">✨</text>
+          <text class="type-name">混合</text>
+          <text class="type-count">{{stats.types.mixed}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-section">
+    <view class="menu-card card">
+      <view class="menu-item" bindtap="goToEdit">
+        <text class="menu-icon">✏️</text>
+        <text class="menu-text">写日记</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="toggleTheme">
+        <text class="menu-icon">🎨</text>
+        <text class="menu-text">主题切换</text>
+        <view class="menu-right">
+          <text class="menu-value">{{theme === 'light' ? '浅色' : '深色'}}</text>
+          <text class="menu-arrow">›</text>
+        </view>
+      </view>
+      <view class="menu-item" bindtap="exportData">
+        <text class="menu-icon">📤</text>
+        <text class="menu-text">导出数据</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="clearAllData">
+        <text class="menu-icon">🗑️</text>
+        <text class="menu-text danger">清除数据</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="showAboutModal">
+        <text class="menu-icon">ℹ️</text>
+        <text class="menu-text">关于</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="version">v1.0.0</text>
+  </view>
+
+  <view wx:if="{{showAbout}}" class="modal-mask" bindtap="hideAboutModal">
+    <view class="modal-content card" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">关于每日日记</text>
+      </view>
+      <view class="modal-body">
+        <text class="about-text">一款简洁的日记小程序</text>
+        <text class="about-text">支持文字、语音、图片、视频四种日记类型</text>
+        <text class="about-text">让记录生活变得简单</text>
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn" bindtap="hideAboutModal">
+          <text>知道了</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

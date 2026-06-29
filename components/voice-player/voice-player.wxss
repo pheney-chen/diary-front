@@ -1,0 +1,55 @@
+.voice-player {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  gap: 20rpx;
+}
+
+.play-btn {
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.play-icon {
+  font-size: 32rpx;
+  color: #fff;
+  margin-left: 4rpx;
+}
+
+.player-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.player-title {
+  font-size: 26rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.progress-section {
+  margin-bottom: 8rpx;
+}
+
+.progress-slider {
+  margin: 0;
+}
+
+.time-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.time-text {
+  font-size: 22rpx;
+  color: #999;
+}

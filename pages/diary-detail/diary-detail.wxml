@@ -1,0 +1,84 @@
+<view class="page" wx:if="{{diary}}">
+  <view class="diary-container">
+    <view class="diary-header">
+      <view class="diary-title" wx:if="{{diary.title}}">
+        {{diary.title}}
+      </view>
+      <view class="diary-meta">
+        <text class="meta-time">{{diary.createTimeStr}}</text>
+        <text class="meta-mood">{{displayMood}}</text>
+      </view>
+      <view class="diary-tags" wx:if="{{diary.tags && diary.tags.length > 0}}">
+        <text class="tag" wx:for="{{diary.tags}}" wx:key="*this">#{{item}}</text>
+      </view>
+    </view>
+
+    <view class="diary-content">
+      <view class="content-text" wx:if="{{diary.content}}">
+        {{diary.content}}
+      </view>
+
+      <view class="content-voice" wx:if="{{diary.voice}}">
+        <view class="voice-player card">
+          <view class="voice-btn" bindtap="togglePlay">
+            <text class="play-icon">{{isPlaying ? '⏸' : '▶'}}</text>
+          </view>
+          <view class="voice-info">
+            <view class="voice-progress">
+              <view class="progress-bar">
+                <view class="progress-fill" style="width: {{duration > 0 ? (currentTime / duration * 100) : 0}}%"></view>
+              </view>
+            </view>
+            <view class="voice-duration">
+              <text>语音日记 · {{duration}}s</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="content-images" wx:if="{{diary.images && diary.images.length > 0}}">
+        <view class="image-grid">
+          <image
+            wx:for="{{diary.images}}"
+            wx:key="*this"
+            src="{{item}}"
+            mode="aspectFill"
+            class="grid-image"
+            data-src="{{item}}"
+            bindtap="previewImage"
+          />
+        </view>
+      </view>
+
+      <view class="content-video" wx:if="{{diary.video}}">
+        <video
+          id="diaryVideo"
+          src="{{diary.video}}"
+          class="diary-video"
+          controls
+          show-center-play-btn
+          object-fit="cover"
+        ></video>
+      </view>
+    </view>
+
+    <view class="diary-footer">
+      <text class="update-time">最后更新：{{diary.updateTimeStr}}</text>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="action-btn" bindtap="deleteDiary">
+      <text class="action-icon">🗑</text>
+      <text class="action-text">删除</text>
+    </view>
+    <view class="action-btn primary" bindtap="editDiary">
+      <text class="action-icon">✏️</text>
+      <text class="action-text">编辑</text>
+    </view>
+  </view>
+</view>
+
+<view wx:else class="loading">
+  <text>加载中...</text>
+</view>
