@@ -12,13 +12,19 @@
 - **视频日记**：支持视频录制与上传，动态记录生活
 - **混合日记**：一篇日记可同时包含文字、语音、图片、视频多种类型
 
+### AI 智能分析
+
+- **王阳明心学模式**：以"知行合一、致良知"的视角分析日记，反思内心成长
+- **毛泽东思想模式**：以"实事求是、群众路线"的视角分析，辩证看待生活
+- **马克思主义模式**：以"唯物辩证法、历史唯物主义"的视角分析，把握生活本质
+
 ### 辅助功能
 
 - **日历视图**：按日期浏览日记，直观查看记录足迹
 - **日记搜索**：按关键词快速查找历史日记
 - **分类标签**：自定义标签，轻松管理日记分类
+- **心情记录**：8种心情标签，记录每日情绪变化
 - **本地存储**：数据本地持久化，隐私安全有保障
-- **主题切换**：多种主题风格，打造个性化日记空间
 
 ## 技术栈
 
@@ -28,7 +34,7 @@
   - 录音：`wx.getRecorderManager()`
   - 拍照/相册：`wx.chooseMedia()`
   - 视频录制：`wx.chooseMedia()`
-- **UI 组件**：微信小程序原生组件 + 自定义组件
+- **AI 分析**：三种思想模式的智能分析
 
 ## 目录结构
 
@@ -40,20 +46,19 @@
 ├── sitemap.json        # 站点地图配置
 ├── pages/              # 页面目录
 │   ├── index/          # 首页（日记列表）
-│   ├── diary-detail/   # 日记详情
+│   ├── diary-detail/   # 日记详情（支持AI分析）
 │   ├── diary-edit/     # 日记编辑/新建
-│   ├── calendar/       # 日历视图
+│   ├── calendar/        # 日历视图
 │   └── profile/        # 个人中心
 ├── components/         # 自定义组件
 │   ├── diary-card/     # 日记卡片组件
-│   ├── voice-player/   # 语音播放器组件
-│   ├── image-preview/  # 图片预览组件
-│   └── video-player/   # 视频播放器组件
+│   └── voice-player/   # 语音播放器组件
 ├── utils/              # 工具函数
 │   ├── storage.js      # 本地存储封装
-│   ├── date.js         # 日期处理工具
-│   ├── media.js        # 媒体处理工具
-│   └── util.js         # 通用工具函数
+│   ├── date.js        # 日期处理工具
+│   ├── media.js       # 媒体处理工具
+│   ├── ai.js          # AI分析工具
+│   └── util.js        # 通用工具函数
 └── assets/             # 静态资源
     ├── images/         # 图片资源
     └── icons/          # 图标资源
@@ -71,7 +76,7 @@
 1. **克隆项目**
 
 ```bash
-git clone <仓库地址>
+git clone https://github.com/pheney-chen/diary-front.git
 cd diary-front
 ```
 
@@ -80,12 +85,31 @@ cd diary-front
    - 打开微信开发者工具
    - 选择「导入项目」
    - 选择项目目录为当前仓库根目录
-   - 填写 AppID（测试可使用测试号）
+   - 填写 AppID（测试可使用测试号 `touristappid`）
    - 点击「导入」
 
 3. **运行项目**
 
    导入成功后，微信开发者工具会自动编译运行，在模拟器中即可预览效果。
+
+## 功能演示
+
+### AI 分析功能
+
+在日记列表页，点击任意日记卡片右上角的 🤖 按钮，或在日记详情页点击底部「AI分析」按钮：
+
+1. 选择分析模式（王阳明心学 / 毛泽东思想 / 马克思主义）
+2. 点击「开始分析」
+3. 查看基于日记内容和心情的个性化分析结果
+4. 支持复制分析结果
+
+### 日记类型
+
+- **文字日记**：输入标题和内容，记录文字感想
+- **语音日记**：点击录音按钮，录制最长10分钟的语音
+- **图片日记**：最多上传9张图片
+- **视频日记**：录制或选择本地视频
+- **混合日记**：以上类型自由组合
 
 ## 开发指南
 
@@ -111,11 +135,24 @@ cd diary-front
   voice: '语音路径',
   voiceDuration: 0, // 语音时长（秒）
   tags: ['标签数组'],
-  mood: '心情',
+  mood: 'happy', // 心情标识
   createTime: '创建时间戳',
   updateTime: '更新时间戳'
 }
 ```
+
+### 心情类型
+
+| 标识 | 心情 | emoji |
+|------|------|-------|
+| happy | 开心 | 😊 |
+| excited | 兴奋 | 🤩 |
+| calm | 平静 | 😌 |
+| sad | 难过 | 😔 |
+| angry | 生气 | 😠 |
+| tired | 疲惫 | 😫 |
+| love | 幸福 | 🥰 |
+| surprised | 惊喜 | 😮 |
 
 ### 核心 API
 
@@ -126,10 +163,24 @@ cd diary-front
 | storage | getDiaryList() | 获取日记列表 |
 | storage | deleteDiary(id) | 删除日记 |
 | storage | searchDiaries(keyword) | 搜索日记 |
+| storage | getDiaryStats() | 获取统计数据 |
 | media | recordVoice() | 开始录音 |
 | media | stopRecord() | 停止录音 |
 | media | chooseImages(count) | 选择图片 |
 | media | chooseVideo() | 选择视频 |
+| ai | analyzeDiary(diary, mode) | AI分析日记 |
+| ai | getAiModes() | 获取AI模式列表 |
+
+### AI 分析模式
+
+```javascript
+// AI 分析模式
+const AI_MODES = [
+  { key: 'wang_yangming', name: '王阳明心学模式', icon: '📜' },
+  { key: 'mao_zedong', name: '毛泽东思想模式', icon: '🏛️' },
+  { key: 'marxism', name: '马克思主义模式', icon: '⚒️' }
+]
+```
 
 ## 项目配置
 
