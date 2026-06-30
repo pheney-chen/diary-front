@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "每日日记",
-  "enablePullDownRefresh": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "diary-card": "/components/diary-card/diary-card"
+  },
+  "enablePullDownRefresh": true
 }

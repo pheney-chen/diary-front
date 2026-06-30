@@ -8,7 +8,7 @@
 .play-btn {
   width: 80rpx;
   height: 80rpx;
-  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  background: var(--primary-gradient);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -18,7 +18,7 @@
 
 .play-icon {
   font-size: 32rpx;
-  color: #fff;
+  color: var(--text-inverse);
   margin-left: 4rpx;
 }
 
@@ -29,7 +29,7 @@
 
 .player-title {
   font-size: 26rpx;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 8rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -51,5 +51,5 @@
 
 .time-text {
   font-size: 22rpx;
-  color: #999;
+  color: var(--text-tertiary);
 }

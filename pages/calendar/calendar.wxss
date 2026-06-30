@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: #f7f7f7;
+  background: var(--bg-page);
   padding: 24rpx;
   padding-bottom: 40rpx;
 }
@@ -24,19 +24,19 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #f5f5f5;
+  background: var(--bg-card-secondary);
 }
 
 .nav-arrow {
   font-size: 36rpx;
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1;
 }
 
 .month-title {
   font-size: 34rpx;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .week-header {
@@ -48,7 +48,7 @@
   flex: 1;
   text-align: center;
   font-size: 24rpx;
-  color: #999;
+  color: var(--text-tertiary);
   padding: 12rpx 0;
 }
 
@@ -74,28 +74,28 @@
 
 .day-number {
   font-size: 28rpx;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .calendar-day.other-month .day-number {
-  color: #ccc;
+  color: var(--text-tertiary);
 }
 
 .calendar-day.today {
-  background: #E8F0FE;
+  background: var(--primary-light);
 }
 
 .calendar-day.today .day-number {
-  color: #4A90E2;
+  color: var(--primary-color);
   font-weight: 600;
 }
 
 .calendar-day.selected {
-  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  background: var(--primary-gradient);
 }
 
 .calendar-day.selected .day-number {
-  color: #fff;
+  color: var(--text-inverse);
   font-weight: 600;
 }
 
@@ -104,12 +104,12 @@
   bottom: 10rpx;
   width: 12rpx;
   height: 12rpx;
-  background: #4A90E2;
+  background: var(--primary-color);
   border-radius: 50%;
 }
 
 .calendar-day.selected .diary-dot {
-  background: #fff;
+  background: var(--text-inverse);
 }
 
 .diary-count {
@@ -131,12 +131,12 @@
 .section-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .diary-count-text {
   font-size: 24rpx;
-  color: #999;
+  color: var(--text-tertiary);
 }
 
 .diary-item {
@@ -154,7 +154,7 @@
 .item-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -162,15 +162,15 @@
 }
 
 .item-title.no-title {
-  color: #999;
+  color: var(--text-tertiary);
   font-weight: normal;
 }
 
 .item-type {
   font-size: 20rpx;
   padding: 4rpx 16rpx;
-  background: #E8F0FE;
-  color: #4A90E2;
+  background: var(--primary-light);
+  color: var(--primary-color);
   border-radius: 20rpx;
   margin-left: 16rpx;
   flex-shrink: 0;
@@ -178,14 +178,14 @@
 
 .item-content {
   font-size: 26rpx;
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 12rpx;
 }
 
 .item-time {
   font-size: 22rpx;
-  color: #ccc;
+  color: var(--text-tertiary);
 }
 
 .empty-day {
@@ -203,14 +203,14 @@
 
 .empty-text {
   font-size: 28rpx;
-  color: #999;
+  color: var(--text-tertiary);
   margin-bottom: 30rpx;
 }
 
 .empty-btn {
   padding: 16rpx 48rpx;
-  background: linear-gradient(135deg, #4A90E2, #357ABD);
-  color: #fff;
+  background: var(--primary-gradient);
+  color: var(--text-inverse);
   border-radius: 50rpx;
   font-size: 28rpx;
 }

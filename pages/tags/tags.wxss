@@ -1,0 +1,150 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg-page);
+  padding: 24rpx;
+}
+
+.section-tip {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+  margin-bottom: 20rpx;
+  padding: 0 10rpx;
+}
+
+.tag-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  margin-bottom: 16rpx;
+}
+
+.tag-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.tag-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tag-count {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+}
+
+.tag-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-btn {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card-secondary);
+  border-radius: 50%;
+  font-size: 32rpx;
+}
+
+.action-btn.delete {
+  background: var(--danger-light);
+  color: var(--danger-color);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 200rpx 0;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: var(--text-secondary);
+  margin-bottom: 12rpx;
+}
+
+.empty-desc {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+}
+
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--mask-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 600rpx;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 30rpx;
+  text-align: center;
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 40rpx 30rpx;
+}
+
+.rename-input {
+  width: 100%;
+  padding: 24rpx;
+  background: var(--bg-input);
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: var(--text-primary);
+}
+
+.modal-footer {
+  padding: 20rpx 30rpx 30rpx;
+  display: flex;
+  gap: 20rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 24rpx;
+  text-align: center;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}
+
+.modal-btn.cancel {
+  background: var(--bg-input);
+  color: var(--text-secondary);
+}
+
+.modal-btn.confirm {
+  background: var(--primary-gradient);
+  color: #fff;
+}

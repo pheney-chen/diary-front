@@ -1,18 +1,5 @@
-<view class="page">
+<view class="page {{theme === 'dark' ? 'theme-dark' : ''}}">
   <view class="editor-container">
-    <view class="type-tabs">
-      <view
-        class="type-tab {{currentType === item.key ? 'active' : ''}}"
-        wx:for="{{typeOptions}}"
-        wx:key="key"
-        data-type="{{item.key}}"
-        bindtap="switchType"
-      >
-        <text class="type-icon">{{item.icon}}</text>
-        <text class="type-name">{{item.name}}</text>
-      </view>
-    </view>
-
     <view class="editor-card card">
       <input
         class="title-input"
@@ -88,36 +75,40 @@
         <text class="section-title">媒体内容</text>
       </view>
 
-      <view class="voice-section card" wx:if="{{currentType === 'voice' || (voice && currentType === 'text')}}">
+      <view class="voice-section card">
         <view class="section-header">
-          <text class="section-label">语音</text>
+          <text class="section-label">🎤 语音</text>
         </view>
         <view wx:if="{{voice}}" class="voice-item">
-          <view class="voice-player-mini">
-            <view class="play-btn" bindtap="playVoice">
-              <text>▶</text>
-            </view>
-            <view class="voice-info">
-              <text class="voice-name">语音日记</text>
-              <text class="voice-duration">{{voiceDuration}}秒</text>
-            </view>
-            <view class="remove-btn" bindtap="removeVoice">
-              <text>×</text>
-            </view>
+          <voice-player
+            src="{{voice}}"
+            duration="{{voiceDuration}}"
+            title="语音日记"
+          />
+          <view class="remove-voice" bindtap="removeVoice">
+            <text>删除语音</text>
           </view>
         </view>
         <view wx:else class="record-section">
-          <view class="record-btn {{isRecording ? 'recording' : ''}}" bindtap="{{isRecording ? 'stopRecording' : 'startRecording'}}">
+          <view
+            class="record-btn {{isRecording ? 'recording' : ''}}"
+            bindtouchstart="onRecordStart"
+            bindtouchend="onRecordEnd"
+            bindtouchcancel="onRecordEnd"
+          >
             <text class="record-icon">{{isRecording ? '⏹' : '🎤'}}</text>
-            <text class="record-text">{{isRecording ? '停止录音 (' + recordTime + 's)' : '点击开始录音'}}</text>
+            <text class="record-text">{{isRecording ? '松开结束 (' + recordTime + 's)' : '按住说话'}}</text>
           </view>
-          <text class="record-tip">最长可录制10分钟</text>
+          <view wx:if="{{isRecording}}" class="record-wave">
+            <view class="wave-bar" wx:for="{{waveBars}}" wx:key="index" style="height: {{item}}rpx;"></view>
+          </view>
+          <text class="record-tip">最长可录制10分钟，松手结束录音</text>
         </view>
       </view>
 
-      <view class="images-section card" wx:if="{{currentType === 'image' || (images.length > 0 && currentType === 'text')}}">
+      <view class="images-section card">
         <view class="section-header">
-          <text class="section-label">图片</text>
+          <text class="section-label">🖼️ 图片</text>
           <text class="image-count">{{images.length}}/9</text>
         </view>
         <view class="image-grid">
@@ -144,9 +135,9 @@
         </view>
       </view>
 
-      <view class="video-section card" wx:if="{{currentType === 'video' || (video && currentType === 'text')}}">
+      <view class="video-section card">
         <view class="section-header">
-          <text class="section-label">视频</text>
+          <text class="section-label">🎬 视频</text>
         </view>
         <view wx:if="{{video}}" class="video-item">
           <video

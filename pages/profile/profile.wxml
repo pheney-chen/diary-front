@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page {{theme === 'dark' ? 'theme-dark' : ''}}">
   <view class="header">
     <view class="avatar-section">
       <view class="avatar">
@@ -63,6 +63,11 @@
       <view class="menu-item" bindtap="goToEdit">
         <text class="menu-icon">✏️</text>
         <text class="menu-text">写日记</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="goToTags">
+        <text class="menu-icon">🏷️</text>
+        <text class="menu-text">标签管理</text>
         <text class="menu-arrow">›</text>
       </view>
       <view class="menu-item" bindtap="toggleTheme">

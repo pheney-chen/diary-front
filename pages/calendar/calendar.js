@@ -1,5 +1,6 @@
 const storage = require('../../utils/storage.js')
 const dateUtil = require('../../utils/date.js')
+const themeUtil = require('../../utils/theme.js')
 
 Page({
   data: {
@@ -10,7 +11,8 @@ Page({
     weekDays: [],
     selectedDate: '',
     diaryDates: {},
-    selectedDiaries: []
+    selectedDiaries: [],
+    theme: 'light'
   },
 
   onLoad() {
@@ -28,9 +30,11 @@ Page({
     this.generateCalendar()
     this.loadDiaryDates()
     this.loadSelectedDiaries()
+    themeUtil.setPageTheme(this)
   },
 
   onShow() {
+    themeUtil.setPageTheme(this)
     this.loadDiaryDates()
     this.loadSelectedDiaries()
   },

@@ -1,21 +1,13 @@
 const storage = require('../../utils/storage.js')
 const mediaUtil = require('../../utils/media.js')
 const util = require('../../utils/util.js')
-
-const DIARY_TYPES = [
-  { key: 'text', name: '文字', icon: '📝' },
-  { key: 'voice', name: '语音', icon: '🎤' },
-  { key: 'image', name: '图片', icon: '🖼️' },
-  { key: 'video', name: '视频', icon: '🎬' }
-]
+const themeUtil = require('../../utils/theme.js')
 
 Page({
   data: {
     id: '',
     title: '',
     content: '',
-    currentType: 'text',
-    typeOptions: DIARY_TYPES,
     images: [],
     video: '',
     videoThumb: '',
@@ -23,12 +15,14 @@ Page({
     voiceDuration: 0,
     isRecording: false,
     recordTime: 0,
+    waveBars: [],
     tags: [],
     tagInput: '',
     showTagInput: false,
     mood: 'happy',
     moodList: util.getMoodList(),
-    showMoodPicker: false
+    showMoodPicker: false,
+    theme: 'light'
   },
 
   onLoad(options) {
@@ -39,11 +33,16 @@ Page({
     } else {
       wx.setNavigationBarTitle({ title: '新建日记' })
     }
+    themeUtil.setPageTheme(this)
+  },
+
+  onShow() {
+    themeUtil.setPageTheme(this)
   },
 
   onUnload() {
     if (this.data.isRecording) {
-      this.stopRecording()
+      this.onRecordEnd()
     }
     if (this.recordTimer) {
       clearInterval(this.recordTimer)
@@ -56,7 +55,6 @@ Page({
       this.setData({
         title: diary.title || '',
         content: diary.content || '',
-        currentType: diary.type || 'text',
         images: diary.images || [],
         video: diary.video || '',
         videoThumb: diary.videoThumb || '',
@@ -74,11 +72,6 @@ Page({
 
   onContentInput(e) {
     this.setData({ content: e.detail.value })
-  },
-
-  switchType(e) {
-    const type = e.currentTarget.dataset.type
-    this.setData({ currentType: type })
   },
 
   async chooseImages() {
@@ -121,7 +114,7 @@ Page({
     this.setData({ video: '', videoThumb: '' })
   },
 
-  async startRecording() {
+  async onRecordStart() {
     const hasPermission = await util.checkPermission('scope.record')
     if (!hasPermission) {
       const granted = await util.requestPermission('scope.record')
@@ -139,24 +132,38 @@ Page({
 
       this.setData({
         isRecording: true,
-        recordTime: 0
+        recordTime: 0,
+        waveBars: this.generateWaveBars(0)
       })
 
       this.recordTimer = setInterval(() => {
+        const newTime = this.data.recordTime + 1
         this.setData({
-          recordTime: this.data.recordTime + 1
+          recordTime: newTime,
+          waveBars: this.generateWaveBars(newTime)
         })
       }, 1000)
+
+      wx.vibrateShort({ type: 'light' })
     } catch (err) {
       console.error('录音失败', err)
       util.showToast('录音启动失败')
     }
   },
 
-  async stopRecording() {
+  async onRecordEnd() {
+    if (!this.data.isRecording) return
+
     if (this.recordTimer) {
       clearInterval(this.recordTimer)
       this.recordTimer = null
+    }
+
+    if (this.data.recordTime < 1) {
+      mediaUtil.stopRecord()
+      this.setData({ isRecording: false, waveBars: [] })
+      util.showToast('录音时间太短')
+      return
     }
 
     mediaUtil.stopRecord()
@@ -166,26 +173,32 @@ Page({
       this.setData({
         isRecording: false,
         voice: result.tempFilePath,
-        voiceDuration: Math.round(result.duration)
+        voiceDuration: Math.round(result.duration),
+        waveBars: []
       })
+      wx.vibrateShort({ type: 'light' })
     } catch (err) {
       console.error('录音结束失败', err)
-      this.setData({ isRecording: false })
+      this.setData({ isRecording: false, waveBars: [] })
       util.showToast('录音失败')
     }
+  },
+
+  generateWaveBars(time) {
+    const bars = []
+    const count = 20
+    for (let i = 0; i < count; i++) {
+      const base = 10 + Math.sin((i + time) * 0.5) * 15
+      const random = Math.random() * 20
+      bars.push(Math.max(8, Math.min(60, base + random)))
+    }
+    return bars
   },
 
   removeVoice() {
     this.setData({
       voice: '',
       voiceDuration: 0
-    })
-  },
-
-  playVoice() {
-    if (!this.data.voice) return
-    mediaUtil.playVoice(this.data.voice, () => {
-      console.log('播放结束')
     })
   },
 

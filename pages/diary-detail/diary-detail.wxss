@@ -1,7 +1,29 @@
 .page {
   min-height: 100vh;
-  background: #f7f7f7;
+  background: var(--bg-page);
   padding-bottom: 140rpx;
+}
+
+.page-actions {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20rpx 30rpx;
+}
+
+.more-btn {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border-radius: 50%;
+  box-shadow: var(--shadow-card);
+  font-size: 32rpx;
+  color: var(--text-secondary);
+  letter-spacing: 2rpx;
 }
 
 .diary-container {
@@ -9,7 +31,7 @@
 }
 
 .diary-header {
-  background: #fff;
+  background: var(--bg-card);
   border-radius: 16rpx;
   padding: 40rpx 30rpx;
   margin-bottom: 24rpx;
@@ -18,7 +40,7 @@
 .diary-title {
   font-size: 40rpx;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 20rpx;
   line-height: 1.4;
 }
@@ -32,7 +54,7 @@
 
 .meta-time {
   font-size: 24rpx;
-  color: #999;
+  color: var(--text-tertiary);
 }
 
 .meta-mood {
@@ -47,14 +69,14 @@
 
 .tag {
   font-size: 24rpx;
-  color: #4A90E2;
-  background: #E8F0FE;
+  color: var(--primary-color);
+  background: var(--primary-light);
   padding: 8rpx 20rpx;
   border-radius: 20rpx;
 }
 
 .diary-content {
-  background: #fff;
+  background: var(--bg-card);
   border-radius: 16rpx;
   padding: 30rpx;
   margin-bottom: 24rpx;
@@ -62,60 +84,13 @@
 
 .content-text {
   font-size: 30rpx;
-  color: #333;
+  color: var(--text-primary);
   line-height: 1.8;
   margin-bottom: 30rpx;
 }
 
-.voice-player {
-  display: flex;
-  align-items: center;
-  padding: 30rpx;
+.content-voice {
   margin-bottom: 30rpx;
-}
-
-.voice-btn {
-  width: 88rpx;
-  height: 88rpx;
-  background: linear-gradient(135deg, #4A90E2, #357ABD);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 24rpx;
-  flex-shrink: 0;
-}
-
-.play-icon {
-  font-size: 36rpx;
-  color: #fff;
-}
-
-.voice-info {
-  flex: 1;
-}
-
-.voice-progress {
-  margin-bottom: 12rpx;
-}
-
-.progress-bar {
-  height: 8rpx;
-  background: #f0f0f0;
-  border-radius: 4rpx;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #4A90E2, #357ABD);
-  border-radius: 4rpx;
-  transition: width 0.1s;
-}
-
-.voice-duration {
-  font-size: 24rpx;
-  color: #999;
 }
 
 .image-grid {
@@ -144,7 +119,7 @@
 
 .update-time {
   font-size: 22rpx;
-  color: #ccc;
+  color: var(--text-tertiary);
 }
 
 .bottom-bar {
@@ -152,12 +127,12 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #fff;
+  background: var(--bg-card);
   padding: 20rpx 30rpx;
   padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
   display: flex;
   gap: 20rpx;
-  box-shadow: 0 -2rpx 20rpx rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-bottom-bar);
 }
 
 .action-btn {
@@ -168,16 +143,16 @@
   gap: 12rpx;
   padding: 24rpx;
   border-radius: 50rpx;
-  background: #f5f5f5;
+  background: var(--bg-input);
 }
 
 .action-btn.primary {
-  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  background: var(--primary-gradient);
 }
 
 .action-btn.primary .action-text,
 .action-btn.primary .action-icon {
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 .action-icon {
@@ -186,7 +161,7 @@
 
 .action-text {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .loading {
@@ -194,7 +169,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  color: #999;
+  color: var(--text-tertiary);
   font-size: 28rpx;
 }
 
@@ -205,7 +180,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--mask-bg);
   z-index: 1000;
   display: flex;
   align-items: flex-end;
@@ -215,7 +190,7 @@
 .ai-panel {
   width: 100%;
   max-height: 80vh;
-  background: #fff;
+  background: var(--bg-card);
   border-radius: 32rpx 32rpx 0 0;
   padding: 30rpx;
   padding-bottom: calc(30rpx + env(safe-area-inset-bottom));
@@ -232,19 +207,19 @@
 .ai-panel-title {
   font-size: 34rpx;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .ai-panel-close {
   width: 56rpx;
   height: 56rpx;
-  background: #f5f5f5;
+  background: var(--bg-input);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 36rpx;
-  color: #999;
+  color: var(--text-tertiary);
 }
 
 .ai-mode-section {
@@ -253,7 +228,7 @@
 
 .ai-section-label {
   font-size: 26rpx;
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 20rpx;
   display: block;
 }
@@ -269,15 +244,15 @@
   align-items: flex-start;
   gap: 20rpx;
   padding: 24rpx;
-  background: #f8f8f8;
+  background: var(--bg-card-secondary);
   border-radius: 16rpx;
   border: 2rpx solid transparent;
   transition: all 0.3s;
 }
 
 .ai-mode-item.selected {
-  background: #E8F0FE;
-  border-color: #4A90E2;
+  background: var(--primary-light);
+  border-color: var(--primary-color);
 }
 
 .mode-icon {
@@ -295,12 +270,12 @@
 .mode-name {
   font-size: 28rpx;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .mode-desc {
   font-size: 22rpx;
-  color: #999;
+  color: var(--text-tertiary);
   line-height: 1.4;
 }
 
@@ -311,8 +286,8 @@
 .ai-analyze-btn {
   width: 100%;
   padding: 28rpx;
-  background: linear-gradient(135deg, #4A90E2, #357ABD);
-  color: #fff;
+  background: var(--primary-gradient);
+  color: var(--text-inverse);
   text-align: center;
   border-radius: 50rpx;
   font-size: 32rpx;
@@ -320,11 +295,11 @@
 }
 
 .ai-analyze-btn.loading {
-  background: #ccc;
+  background: var(--text-tertiary);
 }
 
 .ai-result-section {
-  background: #f8f8f8;
+  background: var(--bg-card-secondary);
   border-radius: 16rpx;
   padding: 24rpx;
 }
@@ -336,12 +311,12 @@
 .ai-result-mode {
   font-size: 26rpx;
   font-weight: 600;
-  color: #4A90E2;
+  color: var(--primary-color);
 }
 
 .ai-result-content {
   font-size: 28rpx;
-  color: #333;
+  color: var(--text-primary);
   line-height: 1.8;
   margin-bottom: 20rpx;
 }
@@ -354,13 +329,13 @@
 .ai-copy-btn {
   flex: 1;
   padding: 20rpx;
-  background: #fff;
-  border: 2rpx solid #4A90E2;
+  background: var(--bg-card);
+  border: 2rpx solid var(--primary-color);
   border-radius: 50rpx;
   text-align: center;
 }
 
 .ai-copy-btn text {
   font-size: 26rpx;
-  color: #4A90E2;
+  color: var(--primary-color);
 }

@@ -3,20 +3,19 @@ const dateUtil = require('../../utils/date.js')
 const mediaUtil = require('../../utils/media.js')
 const util = require('../../utils/util.js')
 const aiUtil = require('../../utils/ai.js')
+const themeUtil = require('../../utils/theme.js')
 
 Page({
   data: {
     diary: null,
     loading: true,
-    isPlaying: false,
-    currentTime: 0,
-    duration: 0,
     displayMood: '',
     showAiPanel: false,
     aiModes: [],
     selectedMode: null,
     aiResult: null,
-    isAnalyzing: false
+    isAnalyzing: false,
+    theme: 'light'
   },
 
   onLoad(options) {
@@ -24,6 +23,11 @@ Page({
     this.autoOpenAi = options.autoOpenAi === 'true'
     this.loadDiary()
     this.initAiModes()
+    themeUtil.setPageTheme(this)
+  },
+
+  onShow() {
+    themeUtil.setPageTheme(this)
   },
 
   onUnload() {
@@ -45,8 +49,7 @@ Page({
           updateTimeStr: dateUtil.formatDateTime(diary.updateTime)
         },
         loading: false,
-        displayMood: util.getMoodEmoji(diary.mood),
-        duration: diary.voiceDuration || 0
+        displayMood: util.getMoodEmoji(diary.mood)
       })
 
       if (this.autoOpenAi) {
@@ -59,28 +62,6 @@ Page({
       setTimeout(() => {
         wx.navigateBack()
       }, 1500)
-    }
-  },
-
-  togglePlay() {
-    if (!this.data.diary || !this.data.diary.voice) return
-
-    if (this.data.isPlaying) {
-      mediaUtil.pauseVoice()
-      this.setData({ isPlaying: false })
-    } else {
-      mediaUtil.playVoice(
-        this.data.diary.voice,
-        () => {
-          this.setData({ isPlaying: false, currentTime: 0 })
-        },
-        (err) => {
-          console.error('播放失败', err)
-          util.showToast('播放失败')
-          this.setData({ isPlaying: false })
-        }
-      )
-      this.setData({ isPlaying: true })
     }
   },
 
@@ -99,6 +80,25 @@ Page({
     wx.navigateTo({
       url: `/pages/diary-edit/diary-edit?id=${this.diaryId}`
     })
+  },
+
+  showMoreMenu() {
+    const itemList = ['分享给好友', '删除日记']
+    wx.showActionSheet({
+      itemList,
+      itemColor: '#333',
+      success: (res) => {
+        if (res.tapIndex === 0) {
+          this.shareDiary()
+        } else if (res.tapIndex === 1) {
+          this.deleteDiary()
+        }
+      }
+    })
+  },
+
+  shareDiary() {
+    util.showToast('点击右上角分享')
   },
 
   async deleteDiary() {

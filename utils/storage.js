@@ -70,6 +70,52 @@ function getDiariesByDate(dateStr) {
   })
 }
 
+function filterDiaries(filters) {
+  let list = getAllDiaries()
+
+  if (filters.keyword) {
+    const lowerKeyword = filters.keyword.toLowerCase()
+    list = list.filter(item => {
+      return (
+        (item.title && item.title.toLowerCase().includes(lowerKeyword)) ||
+        (item.content && item.content.toLowerCase().includes(lowerKeyword)) ||
+        (item.tags && item.tags.some(tag => tag.toLowerCase().includes(lowerKeyword)))
+      )
+    })
+  }
+
+  if (filters.type && filters.type !== 'all') {
+    const type = filters.type
+    list = list.filter(item => {
+      if (type === 'text') return !item.voice && (!item.images || item.images.length === 0) && !item.video
+      if (type === 'voice') return !!item.voice
+      if (type === 'image') return item.images && item.images.length > 0
+      if (type === 'video') return !!item.video
+      return true
+    })
+  }
+
+  if (filters.mood && filters.mood !== 'all') {
+    list = list.filter(item => item.mood === filters.mood)
+  }
+
+  if (filters.tag && filters.tag !== 'all') {
+    list = list.filter(item => item.tags && item.tags.includes(filters.tag))
+  }
+
+  if (filters.startDate) {
+    const startTime = new Date(filters.startDate).getTime()
+    list = list.filter(item => new Date(item.createTime).getTime() >= startTime)
+  }
+
+  if (filters.endDate) {
+    const endTime = new Date(filters.endDate).getTime() + 24 * 60 * 60 * 1000
+    list = list.filter(item => new Date(item.createTime).getTime() < endTime)
+  }
+
+  return list
+}
+
 function getDiariesByMonth(year, month) {
   const list = getAllDiaries()
   return list.filter(item => {
@@ -140,8 +186,29 @@ function formatDate(date) {
   return `${year}-${month}-${day}`
 }
 
-function generateId() {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2)
+function getAllTags() {
+  const list = getAllDiaries()
+  const tagMap = {}
+  list.forEach(item => {
+    if (item.tags && item.tags.length > 0) {
+      item.tags.forEach(tag => {
+        if (tagMap[tag]) {
+          tagMap[tag]++
+        } else {
+          tagMap[tag] = 1
+        }
+      })
+    }
+  })
+  return Object.keys(tagMap).map(tag => ({
+    name: tag,
+    count: tagMap[tag]
+  })).sort((a, b) => b.count - a.count)
+}
+
+function getDiariesByTag(tag) {
+  const list = getAllDiaries()
+  return list.filter(item => item.tags && item.tags.includes(tag))
 }
 
 module.exports = {
@@ -155,5 +222,8 @@ module.exports = {
   getDiariesByDate,
   getDiariesByMonth,
   getDiaryStats,
-  generateId
+  generateId,
+  getAllTags,
+  getDiariesByTag,
+  filterDiaries
 }

@@ -1,0 +1,51 @@
+<view class="page {{theme === 'dark' ? 'theme-dark' : ''}}">
+  <view wx:if="{{allTags.length > 0}}" class="tag-list-section">
+    <view class="section-tip">共 {{allTags.length}} 个标签，点击查看日记</view>
+    <view class="tag-card card" wx:for="{{allTags}}" wx:key="name" data-tag="{{item.name}}" bindtap="goToTagDiaries">
+      <view class="tag-info">
+        <text class="tag-name">#{{item.name}}</text>
+        <text class="tag-count">{{item.count}} 篇日记</text>
+      </view>
+      <view class="tag-actions">
+        <view class="action-btn" data-tag="{{item.name}}" catchtap="showRenameDialog">
+          <text>✏️</text>
+        </view>
+        <view class="action-btn delete" data-tag="{{item.name}}" catchtap="deleteTag">
+          <text>🗑️</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty">
+    <text class="empty-icon">🏷️</text>
+    <text class="empty-text">还没有标签</text>
+    <text class="empty-desc">写日记时添加标签，这里就会显示啦</text>
+  </view>
+
+  <view wx:if="{{showRenameDialog}}" class="modal-mask" bindtap="hideRenameDialog">
+    <view class="modal-content card" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">重命名标签</text>
+      </view>
+      <view class="modal-body">
+        <input
+          class="rename-input"
+          placeholder="输入新标签名"
+          value="{{renameInput}}"
+          bindinput="onRenameInput"
+          maxlength="10"
+          focus="{{showRenameDialog}}"
+        />
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn cancel" bindtap="hideRenameDialog">
+          <text>取消</text>
+        </view>
+        <view class="modal-btn confirm" bindtap="confirmRename">
+          <text>确定</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

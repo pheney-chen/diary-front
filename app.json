@@ -4,7 +4,9 @@
     "pages/diary-detail/diary-detail",
     "pages/diary-edit/diary-edit",
     "pages/calendar/calendar",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/tags/tags",
+    "pages/tag-diaries/tag-diaries"
   ],
   "window": {
     "backgroundTextStyle": "light",

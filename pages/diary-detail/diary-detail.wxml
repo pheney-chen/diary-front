@@ -1,4 +1,10 @@
-<view class="page" wx:if="{{diary}}">
+<view class="page {{theme === 'dark' ? 'theme-dark' : ''}}" wx:if="{{diary}}">
+  <view class="page-actions">
+    <view class="more-btn" bindtap="showMoreMenu">
+      <text>···</text>
+    </view>
+  </view>
+
   <view class="diary-container">
     <view class="diary-header">
       <view class="diary-title" wx:if="{{diary.title}}">
@@ -19,21 +25,11 @@
       </view>
 
       <view class="content-voice" wx:if="{{diary.voice}}">
-        <view class="voice-player card">
-          <view class="voice-btn" bindtap="togglePlay">
-            <text class="play-icon">{{isPlaying ? '⏸' : '▶'}}</text>
-          </view>
-          <view class="voice-info">
-            <view class="voice-progress">
-              <view class="progress-bar">
-                <view class="progress-fill" style="width: {{duration > 0 ? (currentTime / duration * 100) : 0}}%"></view>
-              </view>
-            </view>
-            <view class="voice-duration">
-              <text>语音日记 · {{duration}}s</text>
-            </view>
-          </view>
-        </view>
+        <voice-player
+          src="{{diary.voice}}"
+          duration="{{diary.voiceDuration}}"
+          title="语音日记"
+        />
       </view>
 
       <view class="content-images" wx:if="{{diary.images && diary.images.length > 0}}">
@@ -68,10 +64,6 @@
   </view>
 
   <view class="bottom-bar">
-    <view class="action-btn" bindtap="deleteDiary">
-      <text class="action-icon">🗑</text>
-      <text class="action-text">删除</text>
-    </view>
     <view class="action-btn" bindtap="toggleAiPanel">
       <text class="action-icon">🤖</text>
       <text class="action-text">AI分析</text>

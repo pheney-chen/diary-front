@@ -1,0 +1,53 @@
+<view class="page {{theme === 'dark' ? 'theme-dark' : ''}}">
+  <view class="tag-header">
+    <text class="tag-title">#{{tag}}</text>
+    <text class="tag-count">共 {{diaryList.length}} 篇日记</text>
+  </view>
+
+  <view class="diary-list">
+    <block wx:if="{{diaryList.length > 0}}">
+      <view
+        class="diary-card card"
+        wx:for="{{diaryList}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="goToDetail"
+      >
+        <view class="card-header">
+          <view class="card-date">
+            <text class="date-text">{{item.friendlyDate}}</text>
+            <text class="mood">{{item.displayMood}}</text>
+          </view>
+          <view class="card-type">
+            <text class="type-tag">{{item.type === 'text' ? '文字' : item.type === 'voice' ? '语音' : item.type === 'image' ? '图片' : item.type === 'video' ? '视频' : '混合'}}</text>
+          </view>
+        </view>
+
+        <view class="card-title" wx:if="{{item.title}}">
+          {{item.title}}
+        </view>
+
+        <view class="card-content text-ellipsis-2" wx:if="{{item.content}}">
+          {{item.content}}
+        </view>
+
+        <view class="card-images" wx:if="{{item.images && item.images.length > 0}}">
+          <image
+            wx:for="{{item.images}}"
+            wx:for-item="img"
+            wx:key="*this"
+            src="{{img}}"
+            class="card-image"
+            mode="aspectFill"
+          />
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="empty">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">这个标签下还没有日记</text>
+      <view class="empty-btn" bindtap="goToEdit">写一篇</view>
+    </view>
+  </view>
+</view>

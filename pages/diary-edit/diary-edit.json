@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "新建日记",
-  "usingComponents": {}
+  "usingComponents": {
+    "voice-player": "/components/voice-player/voice-player"
+  }
 }
